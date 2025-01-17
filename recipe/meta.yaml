@@ -6,7 +6,7 @@ package:
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/py-heat-{{ version }}.tar.gz
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/py-heat-{{ version }}.tar.gz
   sha256: bcb63622a82120212ff4e20e8a02ad9359c249951c540cc11db7114bb2a86d76
 
 build:
@@ -14,16 +14,16 @@ build:
     - pyheat=pyheat.commandline:main
   noarch: python
   script: {{ PYTHON }} -m pip install . -vv
-  number: 0
+  number: 1
 
 requirements:
   host:
     - pip
-    - python >=3.6
+    - python {{ python_min }}
   run:
     - matplotlib-base
     - pprofile
-    - python >=3.6
+    - python >={{ python_min }}
 
 test:
   imports:
@@ -33,6 +33,7 @@ test:
     - pyheat --help
   requires:
     - pip
+    - python {{ python_min }}
 
 about:
   home: https://github.com/csurfer/pyheat
